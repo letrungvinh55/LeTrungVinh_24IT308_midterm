@@ -1,8 +1,8 @@
 # Midterm Project – Implement ls(1)
 
 **Học phần:** Lập trình hệ thống  
-**Sinh viên:** Đàm Văn Nguyên  
-**Mã số sinh viên:** 24IT180  
+**Sinh viên:** Lê Trung Vĩnh  
+**Mã số sinh viên:** 24IT308  
 
 ---
 
