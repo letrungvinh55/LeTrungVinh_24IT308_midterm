@@ -103,63 +103,34 @@ Dự án được tổ chức gọn gàng trong các thư mục \`include/\` (he
 **## 3. Bảng Tính Năng & Tùy Chọn Đã Hiện Thực**
 
 
-
 | Tùy chọn | Mô tả theo NetBSD Manual | Trạng thái |
-
 | :---: | :--- | :---: |
+| `-A` | `[should_include_entry()]` Liệt kê tất cả các mục ngoại trừ `.` và `..`. | **Hoàn thành** |
+| `-a` | `[should_include_entry()]` Liệt kê tất cả các mục trong thư mục, bao gồm cả file ẩn (bắt đầu bằng dấu `.`). | **Hoàn thành** |
+| `-c` | `[entry_create(), sort_entries()]` Sử dụng thời gian thay đổi trạng thái file (`ctime`) thay vì thời gian sửa đổi (`mtime`) khi sắp xếp (`-t`) hoặc in (`-l`). Ghi đè `-u`. | **Hoàn thành** |
+| `-d` | `[list_operands()]` Xem thư mục như file thông thường (không liệt kê nội dung bên trong). Ghi đè `-R`. | **Hoàn thành** |
+| `-F` | `[utils_get_classifier()]` Thêm ký tự chỉ định loại file ngay sau tên: `/` (thư mục), `*` (file thực thi), `@` (symlink), `=` (socket), `\|` (FIFO). | **Hoàn thành** |
+| `-f` | `[options_parse(), sort_entries()]` Xuất kết quả không qua sắp xếp (unsorted), tự động kích hoạt `-a`. | **Hoàn thành** |
+| `-h` | `[utils_humanize_size()]` Hiển thị kích thước file và số block ở dạng dễ đọc cho con người (B, K, M, G, T). Ghi đè `-k`. | **Hoàn thành** |
+| `-i` | `[format_print_entries()]` In số inode (file serial number) trước mỗi mục. | **Hoàn thành** |
+| `-k` | `[entry_create(), format_print_entries()]` Báo cáo kích thước và khối tính theo Kilobytes (1024 bytes) cho tùy chọn `-s`. Cờ bên phải cùng giữa `-k` và `-h` sẽ có hiệu lực. | **Hoàn thành** |
+| `-l` | `[format_print_entries(), utils_format_mode()]` Hiển thị định dạng dài chi tiết: chế độ file (permissions), số hard links, chủ sở hữu (owner), nhóm (group), kích thước, ngày giờ chỉnh sửa, tên file (và target nếu là symlink). | **Hoàn thành** |
+| `-n` | `[entry_create(), format_print_entries()]` Tương tự `-l`, nhưng hiển thị UID và GID dưới dạng số thay vì tra cứu tên owner/group. Ghi đè `-l`. | **Hoàn thành** |
+| `-q` | `[utils_sanitize_name()]` Ép buộc in các ký tự không in được (non-printable) thành dấu `?` (mặc định khi xuất ra terminal). Ghi đè `-w`. | **Hoàn thành** |
+| `-R` | `[list_directory()]` Duyệt đệ quy tất cả các thư mục con gặp phải. Ghi đè `-d`. | **Hoàn thành** |
+| `-r` | `[sort_entries(), entry_cmp()]` Đảo ngược thứ tự sắp xếp (ngược bảng chữ cái, hoặc file cũ nhất / nhỏ nhất lên đầu). | **Hoàn thành** |
+| `-S` | `[sort_entries(), entry_cmp()]` Sắp xếp theo kích thước file, file lớn nhất lên đầu. | **Hoàn thành** |
+| `-s` | `[compat_get_blocks(), format_print_total()]` Hiển thị số lượng khối hệ thống tệp tin (filesystem blocks) thực tế mà file chiếm dụng (đơn vị 512 bytes hoặc giá trị biến môi trường `BLOCKSIZE`). Khi xuất ra terminal, in dòng `total <sum>` trước danh sách. | **Hoàn thành** |
+| `-t` | `[sort_entries(), entry_cmp()]` Sắp xếp theo thời gian sửa đổi gần nhất lên trước (nếu kết hợp `-c` dùng ctime, `-u` dùng atime). | **Hoàn thành** |
+| `-u` | `[entry_create(), sort_entries()]` Sử dụng thời gian truy cập gần nhất (`atime`) thay vì mtime cho việc sắp xếp (`-t`) hoặc in (`-l`). Ghi đè `-c`. | **Hoàn thành** |
+| `-w` | `[utils_sanitize_name()]` Ép buộc in nguyên bản (raw) các ký tự không in được (mặc định khi chuyển hướng pipe/file). Ghi đè `-q`. | **Hoàn thành** |
 
-| \`-A\` | \`[should_include_entry()]\` Liệt kê tất cả các mục ngoại trừ \`.\` và \`..\`. | ****Hoàn thành**** |
-
-| \`-a\` | \`[should_include_entry()]\` Liệt kê tất cả các mục trong thư mục, bao gồm cả file ẩn (bắt đầu bằng dấu \`.\`). | ****Hoàn thành**** |
-
-| \`-c\` | \`[entry_create(), sort_entries()]\` Sử dụng thời gian thay đổi trạng thái file (\`ctime\`) thay vì thời gian sửa đổi (\`mtime\`) khi sắp xếp (\`-t\`) hoặc in (\`-l\`). Ghi đè \`-u\`. | ****Hoàn thành**** |
-
-| \`-d\` | \`[list_operands()]\` Xem thư mục như file thông thường (không liệt kê nội dung bên trong). Ghi đè \`-R\`. | ****Hoàn thành**** |
-
-| \`-F\` | \`[utils_get_classifier()]\` Thêm ký tự chỉ định loại file ngay sau tên: \`/\` (thư mục), \`*\` (file thực thi), \`@\` (symlink), \`=\` (socket), \`\|\` (FIFO). | ****Hoàn thành**** |
-
-| \`-f\` | \`[options_parse(), sort_entries()]\` Xuất kết quả không qua sắp xếp (unsorted), tự động kích hoạt \`-a\`. | ****Hoàn thành**** |
-
-| \`-h\` | \`[utils_humanize_size()]\` Hiển thị kích thước file và số block ở dạng dễ đọc cho con người (B, K, M, G, T). Ghi đè \`-k\`. | ****Hoàn thành**** |
-
-| \`-i\` | \`[format_print_entries()]\` In số inode (file serial number) trước mỗi mục. | ****Hoàn thành**** |
-
-| \`-k\` | \`[entry_create(), format_print_entries()]\` Báo cáo kích thước và khối tính theo Kilobytes (1024 bytes) cho tùy chọn \`-s\`. Cờ bên phải cùng giữa \`-k\` và \`-h\` sẽ có hiệu lực. | ****Hoàn thành**** |
-
-| \`-l\` | \`[format_print_entries(), utils_format_mode()]\` Hiển thị định dạng dài chi tiết: chế độ file (permissions), số hard links, chủ sở hữu (owner), nhóm (group), kích thước, ngày giờ chỉnh sửa, tên file (và target nếu là symlink). | ****Hoàn thành**** |
-
-| \`-n\` | \`[entry_create(), format_print_entries()]\` Tương tự \`-l\`, nhưng hiển thị UID và GID dưới dạng số thay vì tra cứu tên owner/group. Ghi đè \`-l\`. | ****Hoàn thành**** |
-
-| \`-q\` | \`[utils_sanitize_name()]\` Ép buộc in các ký tự không in được (non-printable) thành dấu \`?\` (mặc định khi xuất ra terminal). Ghi đè \`-w\`. | ****Hoàn thành**** |
-
-| \`-R\` | \`[list_directory()]\` Duyệt đệ quy tất cả các thư mục con gặp phải. Ghi đè \`-d\`. | ****Hoàn thành**** |
-
-| \`-r\` | \`[sort_entries(), entry_cmp()]\` Đảo ngược thứ tự sắp xếp (ngược bảng chữ cái, hoặc file cũ nhất / nhỏ nhất lên đầu). | ****Hoàn thành**** |
-
-| \`-S\` | \`[sort_entries(), entry_cmp()]\` Sắp xếp theo kích thước file, file lớn nhất lên đầu. | ****Hoàn thành**** |
-
-| \`-s\` | \`[compat_get_blocks(), format_print_total()]\` Hiển thị số lượng khối hệ thống tệp tin (filesystem blocks) thực tế mà file chiếm dụng (đơn vị 512 bytes hoặc giá trị biến môi trường \`BLOCKSIZE\`). Khi xuất ra terminal, in dòng \`total <sum>\` trước danh sách. | ****Hoàn thành**** |
-
-| \`-t\` | \`[sort_entries(), entry_cmp()]\` Sắp xếp theo thời gian sửa đổi gần nhất lên trước (nếu kết hợp \`-c\` dùng ctime, \`-u\` dùng atime). | ****Hoàn thành**** |
-
-| \`-u\` | \`[entry_create(), sort_entries()]\` Sử dụng thời gian truy cập gần nhất (\`atime\`) thay vì mtime cho việc sắp xếp (\`-t\`) hoặc in (\`-l\`). Ghi đè \`-c\`. | ****Hoàn thành**** |
-
-| \`-w\` | \`[utils_sanitize_name()]\` Ép buộc in nguyên bản (raw) các ký tự không in được (mặc định khi chuyển hướng pipe/file). Ghi đè \`-q\`. | ****Hoàn thành**** |
-
-
-
-**### Quy Tắc Ghi Đè (Override Rules) Được Hiện Thực:**
-
-- \`-w\` và \`-q\`: Cờ xuất hiện sau cùng trên dòng lệnh sẽ quyết định cách hiển thị ký tự đặc biệt.
-
-- \`-l\` và \`-n\`: Cờ xuất hiện sau cùng quyết định dạng hiển thị tên hay ID số.
-
-- \`-c\` và \`-u\`: Cờ xuất hiện sau cùng quyết định trường thời gian sử dụng (\`ctime\` hay \`atime\`).
-
-- \`-R\` và \`-d\`: Cờ xuất hiện sau cùng quyết định duyệt đệ quy hay xem thư mục như file.
-
-- \`-k\` và \`-h\`: Cờ bên phải cùng sẽ ghi đè cờ bên trái cho đơn vị khối \`-s\`.
-
+### Quy Tắc Ghi Đè (Override Rules) Được Hiện Thực:
+- `-w` và `-q`: Cờ xuất hiện sau cùng trên dòng lệnh sẽ quyết định cách hiển thị ký tự đặc biệt.
+- `-l` và `-n`: Cờ xuất hiện sau cùng quyết định dạng hiển thị tên hay ID số.
+- `-c` và `-u`: Cờ xuất hiện sau cùng quyết định trường thời gian sử dụng (`ctime` hay `atime`).
+- `-R` và `-d`: Cờ xuất hiện sau cùng quyết định duyệt đệ quy hay xem thư mục như file.
+- `-k` và `-h`: Cờ bên phải cùng sẽ ghi đè cờ bên trái cho đơn vị khối `-s`.
 
 
 **---**
